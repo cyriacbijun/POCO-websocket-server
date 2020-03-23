@@ -2,15 +2,32 @@
 <html>
   <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+      .parent{ background: #999;padding:10px;}
+      .child {background:#ccc;height:100px;margin:20px;}
+    </style>
   </head>
     <body>
-      <div>
-        <form id="form1">
-          <label for="name">Name</label><br>
-          <input type="text" id="name" name="name"><br>
-          <label for="address">Address</label><br>
+      <div class="d-flex p-3 bg-secondary text-white">
+        <div class="p-2 bg-warning" align="center">
+          Please Enter the Following
+        </div>
+      </div>
+      </div>
+      <div class="card">
+        <form id="form1" class="card-body parent">
+          <div class="child col-lg-4">
+            <label for="name">Name</label><br>
+            <input type="text" id="name" name="name"><br>
+          </div>
+          <div class="child col-lg-4">
+            <label for="address">Address</label><br>
           <input type="text" id="address" name="address">
-          <input type="button" onclick="myFunction()" value="Add">
+          </div>
+          <div class="col-lg-1">
+            <input type="button" class="btn btn-primary" onclick="myFunction()" value="Add to Table">
+          </div>
+          
         </form>
       </div>
       <script>
