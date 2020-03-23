@@ -65,3 +65,7 @@ cyriac@Cerebro:/home/POCO-websocket-server$python3 -m http.server
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
 Now,open your favourite browser and go to `http://127.0.0.1:8000/` and open `webpage1.html` and `webpage2.html` as two tabs. Input as required in 1st webpage, the result should appear in 2nd webpage also.
+
+### Sample screenshot
+
+![sample screenshot](assets/sample.png)
