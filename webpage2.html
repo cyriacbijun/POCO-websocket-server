@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+      .w3-container{
+        margin-top: 100px;
+        height: 200px;
+        top: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="w3-container w3-responsive" align="center">
+      <table id="table-first" style="width:25%" class="w3-table-all  w3-hoverable w3-card-4">
+        <thead>
+          <tr class="w3-red">
+            <th>
+              Name
+            </th>
+            <th>
+              Address
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      var socket = new WebSocket("ws://localhost:4000/ws");
+      socket.onopen = function(e) {
+        alert("connected to server");
+        socket.send("stwo");
+      };
+      socket.onmessage = function(event) {
+            var data = event.data;
+            var parser = new window.DOMParser();
+            var xmlobj = parser.parseFromString(data, "text/xml");
+            var name = xmlobj.getElementsByTagName('name')[0].textContent;
+            var address = xmlobj.getElementsByTagName('address')[0].textContent;
+            var tableRef  = document.getElementById("table-first").getElementsByTagName('tbody')[0];
+            var newRow   = tableRef.insertRow(-1);
+            var nameCell  = newRow.insertCell(0);
+            var nameText  = document.createTextNode(name);
+            nameCell.appendChild(nameText);
+            var addCell  = newRow.insertCell(1);
+            var addText  = document.createTextNode(address);
+            addCell.appendChild(addText);
+      }
+      function myFunction(xml) {
+      var i;
+      var xmlDoc = xml.responseXML;
+      var table="<tr><th>Artist</th><th>Title</th></tr>";
+      var x = xmlDoc.getElementsByTagName("CD");
+      for (i = 0; i <x.length; i++) {
+        table += "<tr><td>" +
+        x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+        "</td><td>" +
+        x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+        "</td></tr>";
+      }
+      
+    }
+    </script>
+  </body>
+</html>

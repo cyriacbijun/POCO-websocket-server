@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+  </head>
+    <body>
+      <div>
+        <form id="form1">
+          <label for="name">Name</label><br>
+          <input type="text" id="name" name="name"><br>
+          <label for="address">Address</label><br>
+          <input type="text" id="address" name="address">
+          <input type="button" onclick="myFunction()" value="Add">
+        </form>
+      </div>
+      <script>
+        var socket = new WebSocket("ws://localhost:4000/ws");
+        socket.onopen = function (event) {
+          socket.send("s1");
+        };
+        function myFunction() {
+          nameForm = document.getElementById("name").value;
+          addressForm = document.getElementById("address").value;
+          var xmlDoc = document.implementation.createDocument(null, 'root', null);
+          //adding elements
+          var name= xmlDoc.createElement('name');
+          name.textContent = nameForm;
+          xmlDoc.documentElement.appendChild(name);
+          var address = xmlDoc.createElement('address');
+          address.textContent = addressForm;
+          xmlDoc.documentElement.appendChild(address);
+          //making form back to empty state
+          document.getElementById("name").value = "";
+          document.getElementById("address").value = "";
+          //gettinga string representation
+          var serializer = new XMLSerializer();
+          var xmlString = serializer.serializeToString(xmlDoc);
+          socket.send(xmlString);          
+          }
+      </script> 
+    </body>
+</html>
+
